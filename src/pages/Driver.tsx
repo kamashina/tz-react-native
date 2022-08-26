@@ -13,18 +13,9 @@ import React from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../App';
 import {driversApi} from '../store/api/getDriversApi';
+import {IArrDriverRaces, IDriverRaces} from '../types/DriverTypes';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Driver', 'MyStack'>;
-
-interface IDriverRaces {
-  season: string;
-  date: string;
-  raceName: string;
-}
-
-interface IArrDriverRaces {
-  item: IDriverRaces;
-}
 
 const Driver = ({route}: Props) => {
   const {driverId} = route.params;
@@ -52,13 +43,13 @@ const Driver = ({route}: Props) => {
     <ScrollView>
       <View>
         <Text>To learn more</Text>
-        <TouchableOpacity onPress={() => Linking.openURL(driverInfo.url)}>
+        <TouchableOpacity onPress={() => Linking.openURL(driverInfo!.url)}>
           <Text style={{color: 'blue'}}>'Click'</Text>
         </TouchableOpacity>
-        <Text>Givenname: {driverInfo.givenName}</Text>
-        <Text>Familyname: {driverInfo.familyName}</Text>
-        <Text>Date of birth: {driverInfo.dateOfBirth}</Text>
-        <Text>Nationality: {driverInfo.nationality}</Text>
+        <Text>Givenname: {driverInfo!.givenName}</Text>
+        <Text>Familyname: {driverInfo!.familyName}</Text>
+        <Text>Date of birth: {driverInfo!.dateOfBirth}</Text>
+        <Text>Nationality: {driverInfo!.nationality}</Text>
       </View>
       <FlatList
         data={driverRaces?.MRData.RaceTable.Races}

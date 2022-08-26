@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {
   View,
   Text,
@@ -10,17 +11,9 @@ import React, {useEffect, useState} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../App';
 import {driversApi} from '../store/api/getDriversApi';
+import {IArrAllDrivers, IAllDrivers} from '../types/DriverTypes';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home', 'MyStack'>;
-
-interface IAllDrivers {
-  givenName: string;
-  familyName: string;
-  driverId: string;
-}
-interface IArrAllDrivers {
-  item: IAllDrivers;
-}
 
 const Home = ({navigation}: Props) => {
   const [page, setPage] = useState<number>(1);

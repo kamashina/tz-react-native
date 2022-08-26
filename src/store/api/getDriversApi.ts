@@ -1,5 +1,6 @@
 import {BaseQueryFn, createApi} from '@reduxjs/toolkit/query/react';
 import axios, {AxiosRequestConfig, AxiosError} from 'axios';
+import {IDriverResponse} from '../../types/DriverTypes';
 
 const axiosBaseQuery =
   (
@@ -53,7 +54,8 @@ export const driversApi = createApi({
         url: `/${driverId}`,
         method: 'get',
       }),
-      transformResponse: response => response?.MRData.DriverTable.Drivers[0],
+      transformResponse: (response: IDriverResponse) =>
+        response?.MRData.DriverTable.Drivers[0],
     }),
   }),
 });
