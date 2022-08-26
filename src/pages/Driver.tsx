@@ -42,7 +42,7 @@ const Driver = ({route}: Props) => {
   ) : (
     <ScrollView>
       <View>
-        <Text>To learn more</Text>
+        <Text>Learn more</Text>
         <TouchableOpacity onPress={() => Linking.openURL(driverInfo!.url)}>
           <Text style={{color: 'blue'}}>'Click'</Text>
         </TouchableOpacity>
