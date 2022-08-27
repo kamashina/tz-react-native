@@ -12,16 +12,23 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../App';
 import {driversApi} from '../store/api/getDriversApi';
 import {IArrAllDrivers, IAllDrivers} from '../types/DriverTypes';
+import {authApi} from '../store/api/authApi';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home', 'MyStack'>;
 
 const Home = ({navigation}: Props) => {
   const [page, setPage] = useState<number>(1);
+
   const {
     data: drivers,
-    isLoading,
+    isLoading: driverLoad,
     refetch,
   } = driversApi.useGetAllDriversQuery(page);
+
+  const {data: user, isLoading: userLoad} =
+    authApi.useGetUserInfoWithTokenQuery(
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmNkMTg2MzMyODdmMzEwM2Q0OWNiMGIiLCJpYXQiOjE2NjE1NjIwODEsImV4cCI6MTY2NDE1NDA4MX0.0Q4nde6XJWrUxz8oIzYTEXr-NRj4kVBRtG6eD0D9KlY',
+    );
 
   useEffect(() => {
     refetch();
@@ -50,7 +57,7 @@ const Home = ({navigation}: Props) => {
     </TouchableOpacity>
   );
 
-  return isLoading ? (
+  return driverLoad || userLoad ? (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
       <ActivityIndicator size="large" />
     </View>
@@ -65,6 +72,7 @@ const Home = ({navigation}: Props) => {
         onPress={() => setPage(page + 1)}>
         <Text>{'>'}</Text>
       </TouchableOpacity>
+      <Text>{user!.nickname}</Text>
       <FlatList
         data={drivers?.MRData.DriverTable.Drivers}
         keyExtractor={item => item.driverId}

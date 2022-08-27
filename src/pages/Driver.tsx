@@ -19,9 +19,10 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Driver', 'MyStack'>;
 
 const Driver = ({route}: Props) => {
   const {driverId} = route.params;
-  const {data: driverRaces, isLoading} =
+  const {data: driverRaces, isLoading: racesLoading} =
     driversApi.useGetDriverRaceQuery(driverId);
-  const {data: driverInfo} = driversApi.useGetOneDriverInfoQuery(driverId);
+  const {data: driverInfo, isLoading: driverInfoLoading} =
+    driversApi.useGetOneDriverInfoQuery(driverId);
 
   const renderItem = ({item}: IArrDriverRaces) => (
     <Item season={item.season} date={item.date} raceName={item.raceName} />
@@ -35,7 +36,7 @@ const Driver = ({route}: Props) => {
     </View>
   );
 
-  return isLoading ? (
+  return racesLoading || driverInfoLoading ? (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
       <ActivityIndicator size="large" color="#00ff00" />
     </View>

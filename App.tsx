@@ -5,8 +5,11 @@ import {Provider} from 'react-redux';
 import {store} from './src/store/store';
 import Home from './src/pages/Home';
 import Driver from './src/pages/Driver';
+import Login from './src/pages/Login';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export type RootStackParamList = {
+  Login: undefined;
   Home: undefined;
   Driver: {driverId: string; driverName: string};
 };
@@ -16,11 +19,16 @@ const App: FC = () => {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <RootStack.Navigator initialRouteName="Home">
+        <RootStack.Navigator initialRouteName="Login">
+          <RootStack.Screen
+            name="Login"
+            component={Login}
+            options={{title: 'Login'}}
+          />
           <RootStack.Screen
             name="Home"
             component={Home}
-            options={{title: 'Гонщики'}}
+            options={{title: 'Home'}}
           />
           <RootStack.Screen
             name="Driver"
